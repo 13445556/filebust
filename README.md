@@ -1,111 +1,198 @@
-🧠 FileBust – All-in-One File Optimizer & Transcoder
-⚡ Smart. Fast. Space-Saving. Cross-Platform.
+# 🧠 **FileBust Command Reference**
 
-“FileBust: because every megabyte matters.”
+## 🪄 1️⃣  Clone the Repository
 
-📸 1. Project Overview
-
-FileBust is a single-command media optimizer that compresses and transcodes your files — audio, video, and images — using ffmpeg, pillow, and mutagen.
-It’s designed for developers, editors, and creators who want maximum compression with zero quality loss.
-
-🧩 2. Key Features
-
-✅ Auto-detects file type (image/audio/video)
-✅ Converts to modern, smaller formats (webp, opus, mp4)
-✅ Intelligent renaming to prevent overwrite
-✅ File size comparison before/after
-✅ Recursive folder scanning
-✅ Progress updates and summary stats
-✅ Built-in error handling
-✅ Single-line CLI execution
-
-🧱 3. Installation & Setup
-🧰 Requirements
-
-Python 3.10+
-
-FFmpeg (add to PATH)
-
-Pip packages:
-
-pip install pillow mutagen tqdm colorama
-
-🪶 Clone the Repo
+```bash
 git clone https://github.com/<your-username>/filebust.git
 cd filebust
+```
 
-🧩 4. How to Run
-🧭 Basic Usage
+---
 
-Optimize all supported files inside a folder:
+## 🧱 2️⃣  Install Requirements
 
+### 🧰 Install Python Libraries
+
+```bash
+pip install pillow mutagen tqdm colorama
+```
+
+### 🎞️ Install FFmpeg (required for transcoding)
+
+#### 🪟 Windows:
+
+Download from 👉 [https://ffmpeg.org/download.html](https://ffmpeg.org/download.html)
+Then add `ffmpeg/bin` to your **PATH** environment variable.
+
+#### 🐧 Linux / macOS:
+
+```bash
+sudo apt install ffmpeg       # Ubuntu / Debian
+# or
+brew install ffmpeg           # macOS
+```
+
+---
+
+## 🧩 3️⃣  Run the Optimizer
+
+### 🎬 Basic Folder Optimization
+
+Process and optimize all files in a folder (non-destructive):
+
+```bash
 python f3.py "path/to/folder"
+```
 
-⚙️ Transcode Mode
+---
 
-Transcode all media (video, audio, and images) into optimized modern formats:
+### ⚙️ Transcode Media Files
 
+Convert videos, images, and audio to smaller modern formats:
+
+```bash
 python f3.py "path/to/folder" --transcode
+```
 
-💾 Example Output
-ℹ️ 🎬 Transcoding Video: demo.mp4
-ℹ️ ✅ demo.mp4: 50.0MB → 28.2MB (43.6% saved)
-ℹ️ 🎬 Transcoding Image: logo.png
-ℹ️ ✅ logo.png: 2.0MB → 48.7KB (97.6% saved)
+---
 
-⚡ 5. Demo in One Command
+### 🎚️ Set Quality Levels
 
-All-in-One Demo Command (for presentation):
+Choose between three compression qualities:
 
-python f3.py "samples" --transcode
+```bash
+python f3.py "path/to/folder" --transcode --quality low
+python f3.py "path/to/folder" --transcode --quality medium
+python f3.py "path/to/folder" --transcode --quality high
+```
 
+Default = `medium`
 
-This will:
+---
 
-Scan all files in /samples
+### 🧼 Deduplicate Files
 
-Compress and transcode supported media
+Removes duplicate files safely based on file hashes:
 
-Display before/after sizes
+```bash
+python f3.py "path/to/folder" --dedup
+```
 
-Print total savings in the console
+---
 
-📊 6. Supported File Types
-Type	Input Formats	Output Format	Compression Tool
-🎬 Video	.mp4 .mkv .mov	.mp4	FFmpeg (libx264)
-🎵 Audio	.mp3 .wav .flac	.opus	FFmpeg (libopus)
-🖼️ Image	.jpg .jpeg .png	.webp	Pillow / FFmpeg
-🚀 7. Output Example
-ℹ️ 🎬 Transcoding Audio: 5-MB-MP3.mp3
-ℹ️ ✅ 5-MB-MP3.mp3: 5.0MB → 2.6MB (47.8% saved)
-ℹ️ 🎬 Transcoding Image: sample.png
-ℹ️ ✅ sample.png: 2.0MB → 45.0KB (97.7% saved)
+### 🗂️ Organize Files
 
-🧠 8. Constraints & Notes
+Automatically sort files into folders by **type** or **size**:
 
-Works on Windows, macOS, and Linux
+```bash
+python f3.py "path/to/folder" --organize type
+python f3.py "path/to/folder" --organize size
+```
 
-Requires FFmpeg in system PATH
+---
 
-Skips already optimized files (_opt suffix)
+### ⚡ Run Everything (All-in-One Command)
 
-Non-media files are ignored
+Use this in your **presentation demo** 👇
+It performs deduplication, organization, and transcoding together:
 
-Safe: original files are preserved
+```bash
+python f3.py "samples" --dedup --organize type --transcode --quality medium --threads 4 --verbose
+```
 
-🧩 9. File Structure
-filebust/
-│
-├── f3.py               # Main script
-├── README.md           # Documentation
-├── samples/            # Test media folder
-└── requirements.txt    # Dependency list
+That’s your **hero command** 🎥 — the one to show during your **3–4 minute video**.
 
-🧠 10. Author & Credits
+---
 
-👨‍💻 Vedant gupta
-🎯 Project for Code Olympics 2025
+## 🧮 4️⃣  Example Outputs
 
-💬 11. Tagline for Demo
+### Successful Transcode:
 
-“From 100MB to 10MB in seconds — powered by FileBust.”
+```
+🎬 Transcoding Video: travel.mp4
+✅ travel.mp4: 80.5MB → 45.2MB (43.8% saved)
+```
+
+### Duplicate Removal:
+
+```
+🗑️ Removed duplicate: sunset_1.jpg
+```
+
+### Organization:
+
+```
+📂 Moved: logo.png → png/
+```
+
+### Summary:
+
+```
+🎉 Summary: 6 files | Saved: 180.3MB (58.2%) | Errors: 0
+```
+
+---
+
+## 🧠 5️⃣  Troubleshooting
+
+| Issue                     | Cause                               | Fix                                            |
+| ------------------------- | ----------------------------------- | ---------------------------------------------- |
+| `Tool not found: ffmpeg`  | FFmpeg not installed or not in PATH | Install FFmpeg and restart terminal            |
+| `Permission denied`       | Folder is read-only                 | Run as admin or choose another folder          |
+| `Output file not created` | File type not supported             | Use supported formats (.mp4, .jpg, .mp3, etc.) |
+
+---
+
+## 💡 6️⃣  Clean Exit
+
+If you stop midway:
+
+```bash
+CTRL + C
+```
+
+The script safely exits and prints summary stats.
+
+---
+
+## 🎯 7️⃣  Optional Developer Commands
+
+### Create a virtual environment (recommended)
+
+```bash
+python -m venv venv
+venv\Scripts\activate     # Windows
+source venv/bin/activate  # macOS/Linux
+```
+
+### Save dependencies to requirements.txt
+
+```bash
+pip freeze > requirements.txt
+```
+
+### Run code linter (optional)
+
+```bash
+flake8 f3.py --max-line-length=200
+```
+
+---
+
+## 🧾 8️⃣  For Presentation (Sequence Plan)
+
+1️⃣ Show challenge image (“Error-Proof Coder + File Management + 200 lines”)
+2️⃣ Show GitHub repo (`README.md` with usage + command list)
+3️⃣ Explain libraries installed (`ffmpeg`, `pillow`, `mutagen`, etc.)
+4️⃣ Run your **All-in-One Command** live:
+
+```bash
+python f3.py "samples" --dedup --organize type --transcode --quality medium --threads 4 --verbose
+```
+
+5️⃣ Show results (before/after sizes)
+6️⃣ End with your tagline:
+
+> “From 100MB to 10MB — safely, smartly, instantly. That’s FileBust.”
+
+It’ll sound like an energetic presentation with timing cues (e.g., “pause 2s”, “zoom in on terminal output”).
