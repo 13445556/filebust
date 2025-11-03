@@ -103,7 +103,7 @@ filebust/
 
 🧠 10. Author & Credits
 
-👨‍💻 Abhishek [YourNameHere]
+👨‍💻 Vedant gupta
 🎯 Project for Code Olympics 2025
 
 💬 11. Tagline for Demo
